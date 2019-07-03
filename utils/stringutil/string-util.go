@@ -35,6 +35,24 @@ func SplitLast(str string, sep string) string {
 	return str
 }
 
+// 首字母是否小写
+func IsLowerFirst(str string) bool {
+	first := str[0]
+	if first >= 97 && first <= 122 {
+		return true
+	}
+	return false
+}
+
+// 首字母是否大写
+func IsUpperFirst(str string) bool {
+	first := str[0]
+	if first >= 65 && first <= 90 {
+		return true
+	}
+	return false
+}
+
 // LowerFirst 首字母小写
 func LowerFirst(str string) string {
 	first := str[:1]
