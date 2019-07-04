@@ -1,11 +1,18 @@
 package arrayutil
 
 import (
-	"errors"
 	"sort"
 )
 
 type ArrayList []interface{}
+
+// 添加, 如果存在, 不处理
+func (arr *ArrayList) Add(item interface{}) {
+	if arr.Contains(item) {
+		return
+	}
+	arr.Push(item)
+}
 
 func (arr *ArrayList) Clear() {
 	*arr = (*arr)[:0]
@@ -31,15 +38,15 @@ func (arr *ArrayList) Every(cond func(item interface{}) bool) bool {
 	return true
 }
 
-func (arr *ArrayList) First(cond func(item interface{}) bool) (interface{}, error) {
+func (arr *ArrayList) First(cond func(item interface{}) bool) (val interface{}, has bool) {
 	s := *arr
 	for i := 0; i < len(s); i++ {
 		val := s[i]
 		if cond(val) {
-			return val, nil
+			return val, true
 		}
 	}
-	return nil, errors.New("not found")
+	return nil, false
 }
 
 func (arr *ArrayList) Filter(cond func(index int, elem interface{}) bool) (r ArrayList) {
