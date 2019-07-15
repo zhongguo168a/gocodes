@@ -7,11 +7,13 @@ import (
 type ArrayList []interface{}
 
 // 添加, 如果存在, 不处理
-func (arr *ArrayList) Add(item interface{}) {
-	if arr.Contains(item) {
-		return
+func (arr *ArrayList) Add(items ...interface{}) {
+	for _, item := range items {
+		if arr.Contains(item) {
+			return
+		}
+		arr.Push(item)
 	}
-	arr.Push(item)
 }
 
 func (arr *ArrayList) Clear() {
