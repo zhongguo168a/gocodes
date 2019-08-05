@@ -3,6 +3,20 @@ package stringutil
 
 import "strings"
 
+// 驼峰 to 下划线
+func CamelToUnderline(target string) string {
+	return strings.Join(SplitUpper(target), "_")
+}
+
+// 下划线 to 驼峰
+func UnderlineToCamel(target string) string {
+	arr := strings.Split(target, "_")
+	for i, val := range arr {
+		arr[i] = UpperFirst(val)
+	}
+	return strings.Join(arr, "")
+}
+
 // 按照大小写分组
 func SplitUpper(target string) []string {
 	chars := []byte(target)
