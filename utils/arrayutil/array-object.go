@@ -16,6 +16,10 @@ func (arr *ArrayList) Add(items ...interface{}) {
 	}
 }
 
+func (arr *ArrayList) At(index int) interface{} {
+	return (*arr)[index]
+}
+
 func (arr *ArrayList) Clear() {
 	*arr = (*arr)[:0]
 }
@@ -165,6 +169,10 @@ func (arr *ArrayList) Shift() interface{} {
 	*arr = s2
 
 	return top
+}
+
+func (arr *ArrayList) Slice() []interface{} {
+	return []interface{}(*arr)
 }
 
 func (arr *ArrayList) Sort(compare func(a, b interface{}) int) {
