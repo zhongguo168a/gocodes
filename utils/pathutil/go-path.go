@@ -15,6 +15,7 @@ type GoPkg string
 
 func (pkg GoPkg) MustGoPath() string {
 	p, _ := pkg.GetGoPath()
+
 	return p
 }
 
