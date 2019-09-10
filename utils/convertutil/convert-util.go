@@ -22,6 +22,8 @@ func ConvertInt2String(ival interface{}) string {
 func Convert2String(ival interface{}) string {
 	val := ""
 	switch x := ival.(type) {
+	case string:
+		val = x
 	case int:
 		val = strconv.Itoa(x)
 	case int8:

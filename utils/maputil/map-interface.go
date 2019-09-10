@@ -137,3 +137,24 @@ func Map(t map[string]interface{}, key string) (r map[string]interface{}) {
 
 	return
 }
+
+func Array(t map[string]interface{}, key string) (r []interface{}) {
+	if t == nil {
+		return
+	}
+
+	ir, ok := t[key]
+	if ok == false {
+		r = []interface{}{}
+		t[key] = r
+		return
+	}
+
+	if ir == nil {
+		return
+	}
+
+	r = ir.([]interface{})
+
+	return
+}

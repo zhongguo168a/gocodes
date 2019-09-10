@@ -14,6 +14,14 @@ func (arr *ArrayListInt) Clear() {
 	*arr = (*arr)[:0]
 }
 
+func (arr *ArrayListInt) Clone() ArrayListInt {
+	s := *arr
+	ss := make([]int, len(s), cap(s))
+	copy(ss, s)
+
+	return ss
+}
+
 func (arr *ArrayListInt) Contains(item int) bool {
 	return arr.IndexOf(item) != -1
 }
@@ -24,7 +32,7 @@ func (arr *ArrayListInt) ContainsCond(cond func(item int) bool) bool {
 
 // 每一个项都符合条件就返回true
 func (arr *ArrayListInt) Every(cond func(item int) bool) bool {
-	s := *arr
+	s := arr.Clone()
 	for i := 0; i < len(s); i++ {
 		val := s[i]
 		if cond(val) == false {
@@ -35,7 +43,7 @@ func (arr *ArrayListInt) Every(cond func(item int) bool) bool {
 }
 
 func (arr *ArrayListInt) First(cond func(item int) bool) (int, bool) {
-	s := *arr
+	s := arr.Clone()
 	for i := 0; i < len(s); i++ {
 		val := s[i]
 		if cond(val) {
@@ -47,7 +55,7 @@ func (arr *ArrayListInt) First(cond func(item int) bool) (int, bool) {
 
 // 过滤数组, 返回符合条件[conf]的新数组
 func (arr *ArrayListInt) Filter(cond func(index int, elem int) bool) (r ArrayListInt) {
-	for i, x := range *arr {
+	for i, x := range arr.Clone() {
 		if cond(i, x) {
 			r = append(r, x)
 		}
@@ -56,8 +64,9 @@ func (arr *ArrayListInt) Filter(cond func(index int, elem int) bool) (r ArrayLis
 }
 
 func (arr *ArrayListInt) ForRange(handler func(item int)) {
-	for _, x := range *arr {
-		handler(x)
+	s := arr.Clone()
+	for i := 0; i < len(s); i++ {
+		handler(s[i])
 	}
 }
 
@@ -82,7 +91,7 @@ func (arr *ArrayListInt) IndexOf(item int) int {
 }
 
 func (arr *ArrayListInt) Last(cond func(item int) bool) int {
-	s := *arr
+	s := arr.Clone()
 	for i := len(s) - 1; i >= 0; i-- {
 		val := s[i]
 		if cond(val) {
